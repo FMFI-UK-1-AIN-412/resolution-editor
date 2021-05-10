@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/resolution-editor/static/js/main.c97a2d49.chunk.js",
+    "main.js.map": "/resolution-editor/static/js/main.c97a2d49.chunk.js.map",
+    "runtime-main.js": "/resolution-editor/static/js/runtime-main.0ef3d098.js",
+    "runtime-main.js.map": "/resolution-editor/static/js/runtime-main.0ef3d098.js.map",
+    "static/js/2.acd7f87a.chunk.js": "/resolution-editor/static/js/2.acd7f87a.chunk.js",
+    "static/js/2.acd7f87a.chunk.js.map": "/resolution-editor/static/js/2.acd7f87a.chunk.js.map",
+    "index.html": "/resolution-editor/index.html",
+    "precache-manifest.130fe5f63c4e2086a7fc6173bb0b0767.js": "/resolution-editor/precache-manifest.130fe5f63c4e2086a7fc6173bb0b0767.js",
+    "service-worker.js": "/resolution-editor/service-worker.js",
+    "static/js/2.acd7f87a.chunk.js.LICENSE.txt": "/resolution-editor/static/js/2.acd7f87a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0ef3d098.js",
+    "static/js/2.acd7f87a.chunk.js",
+    "static/js/main.c97a2d49.chunk.js"
+  ]
+}
