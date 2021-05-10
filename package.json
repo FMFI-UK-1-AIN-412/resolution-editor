@@ -1,14 +1,14 @@
 {
   "name": "resolution-editor",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
-  "homepage": "https://NorbertJu.github.io/ResolutionEditor",
+  "homepage": "https://fmfi-uk-1-ain-412.github.io/resolution-editor",
   "devDependencies": {
     "gh-pages": "^2.2.0",
     "react-scripts": "^3.0.0"
   },
   "dependencies": {
-    "@fmfi-uk-1-ain-412/js-fol-parser": "^0.4.2",
+    "@fmfi-uk-1-ain-412/js-fol-parser": "^0.6.1",
     "bootstrap": "^4.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
