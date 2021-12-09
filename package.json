@@ -3,19 +3,27 @@
   "version": "1.0.0",
   "private": true,
   "homepage": "https://fmfi-uk-1-ain-412.github.io/resolution-editor",
+  "main": "module-dist/code/module.js",
+  "types": "module-dist/types/module.d.ts",
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
     "gh-pages": "^2.2.0",
-    "react-scripts": "^3.0.0"
+    "react-scripts": "^3.0.0",
+    "typescript": "^4.5.2",
+    "del-cli": "^4.0.1"
   },
   "dependencies": {
     "@fmfi-uk-1-ain-412/js-fol-parser": "^0.6.1",
     "bootstrap": "^4.4.1",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-redux": "^7.0.2",
     "redux": "^4.0.1",
     "redux-undo": "^1.0.0-beta9-9-7"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,7 +31,9 @@
     "eject": "react-scripts eject",
     "test": "react-scripts test --env=node --passWithNoTests",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "build-module": "npx del-cli module-dist/code && npx babel src/ --out-dir module-dist/code",
+    "prepare": "npm run build-module"
   },
   "browserslist": [
     ">0.2%",
