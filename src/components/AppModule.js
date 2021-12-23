@@ -8,10 +8,25 @@ import Help from '../components/Help'
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import reducer from '../reducers'
+import reducer, { exportState, importState } from '../reducers'
 
-function AppModule() {
-  const store = useState(createStore(reducer))[0];
+function prepare(initialState) {
+  const preloadedState = initialState === null ? undefined : importState(initialState)
+  const instance = {
+    store: createStore(reducer, preloadedState)
+  };
+  const getState = (instance) => exportState(instance.store.getState());
+  return {
+    instance,
+    getState
+  };
+}
+
+function AppComponent(props) {
+  const store = props.instance.store
+  store.subscribe(() => {
+    props.onStateChange();
+  });
   return (
     <Provider store={store}>
       <ActualLanguage />
@@ -19,7 +34,10 @@ function AppModule() {
       <AddStep />
       <Help />
     </Provider>
-  )
+  );
 }
 
-export default AppModule
+export {
+  prepare,
+  AppComponent,
+}
