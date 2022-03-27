@@ -29,10 +29,12 @@ function AppComponent(props) {
   });
   return (
     <Provider store={store}>
+      {props.isEdited && <UndoRedo />}
+      {props.isEdited && <ImportExport />}
       <ActualLanguage />
       <ActualProof />
-      <AddStep />
-      <Help />
+      {props.isEdited && <AddStep />}
+      {props.isEdited && <Help />}
     </Provider>
   );
 }
