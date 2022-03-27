@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "homepage": "https://fmfi-uk-1-ain-412.github.io/resolution-editor",
-  "main": "module-dist/code/module.js",
-  "types": "module-dist/types/module.d.ts",
+  "main": "lib/dist/components/AppComponent.js",
+  "types": "lib/types/types.d.ts",
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
@@ -32,7 +32,7 @@
     "test": "react-scripts test --env=node --passWithNoTests",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "build-module": "npx del-cli module-dist/code && npx babel src/ --out-dir module-dist/code",
+    "build-module": "npx del-cli lib/dist && npx babel src/ --out-dir lib/dist",
     "prepare": "npm run build-module"
   },
   "browserslist": [
