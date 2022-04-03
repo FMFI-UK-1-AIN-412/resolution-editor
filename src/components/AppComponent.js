@@ -10,6 +10,9 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducer, { exportState, importState } from '../reducers'
 
+import '../static/css/bootstrap.min.iso.css';
+import '../static/css/style.iso.css';
+
 function prepare(initialState) {
   const preloadedState = initialState === null ? undefined : importState(initialState)
   const instance = {
@@ -28,14 +31,16 @@ function AppComponent(props) {
     props.onStateChange();
   });
   return (
-    <Provider store={store}>
-      {props.isEdited && <UndoRedo />}
-      {props.isEdited && <ImportExport />}
-      <ActualLanguage />
-      <ActualProof />
-      {props.isEdited && <AddStep />}
-      {props.isEdited && <Help />}
-    </Provider>
+    <div className="resolution-editor-4YK5awDfvr">
+      <Provider store={store}>
+        {props.isEdited && <UndoRedo />}
+        {props.isEdited && <ImportExport />}
+        <ActualLanguage />
+        <ActualProof />
+        {props.isEdited && <AddStep />}
+        {props.isEdited && <Help />}
+      </Provider>
+    </div>
   );
 }
 
