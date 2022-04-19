@@ -33,7 +33,7 @@
     "test": "react-scripts test --env=node --passWithNoTests",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "build-module": "npx del-cli lib/dist && npx babel src/ --out-dir lib/dist && npx isolate-css-cli -c -o lib/dist/static/css -u 1 public",
+    "build-module": "npx del-cli lib/dist && npx babel src/ --out-dir lib/dist && npx isolate-css-cli -p resolution-editor-4YK5awDfvr -c -o lib/dist/static/css -u 1 public",
     "prepare": "npm run build-module"
   },
   "browserslist": [
