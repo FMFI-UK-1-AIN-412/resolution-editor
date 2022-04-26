@@ -1,13 +1,16 @@
 {
-  "name": "resolution-editor",
+  "name": "@fmfi-uk-1-ain-412/resolution-editor",
   "version": "1.0.0",
-  "private": true,
   "homepage": "https://fmfi-uk-1-ain-412.github.io/resolution-editor",
   "main": "lib/dist/components/AppComponent.js",
   "types": "lib/types/types.d.ts",
+  "files": [
+    "lib/**"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
+    "@fmfi-uk-1-ain-412/isolate-css": "^0.1.0",
     "del-cli": "^4.0.1",
     "gh-pages": "^2.2.0",
     "react-scripts": "^3.0.0",
@@ -16,7 +19,6 @@
   "dependencies": {
     "@fmfi-uk-1-ain-412/js-fol-parser": "^0.6.1",
     "bootstrap": "^4.4.1",
-    "isolate-css": "github:4zzz/isolate-css#700fe4daff852468cc7f0afc2041018acfd6393f",
     "prop-types": "^15.7.2",
     "react-redux": "^7.0.2",
     "redux": "^4.0.1",
@@ -41,5 +43,18 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "description": "An interactive editor of first-order resolution proofs, intended to be used as a teaching tool. Web-based, client-only, available for use at https://fmfi-uk-1-ain-412.github.io/resolution-editor/.",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4zzz/resolution-editor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/4zzz/resolution-editor/issues"
+  }
 }
