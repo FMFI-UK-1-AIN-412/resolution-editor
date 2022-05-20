@@ -8,13 +8,13 @@ import Help from '../components/Help'
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import reducer, { exportState, importState } from '../reducers'
+import reducer, { exportState, importState, freshState } from '../reducers'
 
 import '../static/css/bootstrap.min.iso.css';
 import '../static/css/style.iso.css';
 
 function prepare(initialState) {
-  const preloadedState = initialState === null ? undefined : importState(initialState)
+  const preloadedState = initialState === null ? importState(freshState) : importState(initialState)
   const instance = {
     store: createStore(reducer, preloadedState)
   };
