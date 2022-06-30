@@ -1,6 +1,6 @@
 {
   "name": "@fmfi-uk-1-ain-412/resolution-editor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://fmfi-uk-1-ain-412.github.io/resolution-editor",
   "main": "lib/dist/components/AppComponent.js",
   "types": "lib/types/types.d.ts",
@@ -50,11 +50,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/4zzz/resolution-editor.git"
+    "url": "git+https://github.com/FMFI-UK-1-AIN-412/resolution-editor.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/4zzz/resolution-editor/issues"
+    "url": "https://github.com/FMFI-UK-1-AIN-412/resolution-editor/issues"
   }
 }
