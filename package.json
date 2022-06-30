@@ -1,21 +1,32 @@
 {
-  "name": "resolution-editor",
-  "version": "1.0.0",
-  "private": true,
+  "name": "@fmfi-uk-1-ain-412/resolution-editor",
+  "version": "1.0.3",
   "homepage": "https://fmfi-uk-1-ain-412.github.io/resolution-editor",
+  "main": "lib/dist/components/AppComponent.js",
+  "types": "lib/types/types.d.ts",
+  "files": [
+    "lib/**"
+  ],
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@fmfi-uk-1-ain-412/isolate-css": "^0.1.0",
+    "del-cli": "^4.0.1",
     "gh-pages": "^2.2.0",
-    "react-scripts": "^3.0.0"
+    "react-scripts": "^3.0.0",
+    "typescript": "^4.5.2"
   },
   "dependencies": {
     "@fmfi-uk-1-ain-412/js-fol-parser": "^0.6.1",
     "bootstrap": "^4.4.1",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-redux": "^7.0.2",
     "redux": "^4.0.1",
     "redux-undo": "^1.0.0-beta9-9-7"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,12 +34,27 @@
     "eject": "react-scripts eject",
     "test": "react-scripts test --env=node --passWithNoTests",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "build-module": "npx del-cli lib/dist && npx babel src/ --out-dir lib/dist && npx isolate-css-cli -p resolution-editor-4YK5awDfvr -c -o lib/dist/static/css -u 1 public",
+    "prepare": "npm run build-module"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "description": "An interactive editor of first-order resolution proofs, intended to be used as a teaching tool. Web-based, client-only, available for use at https://fmfi-uk-1-ain-412.github.io/resolution-editor/.",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FMFI-UK-1-AIN-412/resolution-editor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FMFI-UK-1-AIN-412/resolution-editor/issues"
+  }
 }

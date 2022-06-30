@@ -9,6 +9,8 @@ const initialCombinedState = {
   inputChange: { originValue: "" }
 };
 
+export const freshState = exportState(newHistory([], initialCombinedState, []));
+
 function app(state = initialCombinedState, action) {
   switch (action.type) {
     case CHANGE_CONST:
