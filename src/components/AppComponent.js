@@ -16,7 +16,9 @@ import '../static/css/style.iso.css';
 function prepare(initialState) {
   const preloadedState = initialState === null ? importState(freshState) : importState(initialState)
   const instance = {
-    store: createStore(reducer, preloadedState)
+    store: createStore(reducer, preloadedState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__({
+      name: 'resolution-editor'
+    }))
   };
   const getState = (instance) => exportState(instance.store.getState());
   return {
