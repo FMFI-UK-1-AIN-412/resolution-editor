@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AddStep from '../containers/AddStep'
 import ActualProof from '../containers/ActualProof'
 import ActualLanguage from '../containers/ActualLanguage'
@@ -9,6 +9,7 @@ import Help from '../components/Help'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducer, { exportState, importState, freshState } from '../reducers'
+import { LogicContext } from '../logicContext';
 
 import '../static/css/bootstrap.min.iso.css';
 import '../static/css/style.iso.css';
@@ -27,20 +28,22 @@ function prepare(initialState) {
   };
 }
 
-function AppComponent(props) {
-  const store = props.instance.store
+function AppComponent({ instance, isEdited, onStateChange, context, proof }) {
+  const store = instance.store
   store.subscribe(() => {
-    props.onStateChange();
+    onStateChange();
   });
   return (
     <div className="resolution-editor-4YK5awDfvr">
       <Provider store={store}>
-        {props.isEdited && <UndoRedo />}
-        {props.isEdited && <ImportExport />}
-        <ActualLanguage />
-        <ActualProof />
-        {props.isEdited && <AddStep />}
-        {props.isEdited && <Help />}
+        <LogicContext.Provider value={context}>
+          {isEdited && <UndoRedo />}
+          {isEdited && <ImportExport />}
+          <ActualLanguage />
+          <ActualProof />
+          {isEdited && <AddStep />}
+          {isEdited && <Help />}
+        </LogicContext.Provider>
       </Provider>
     </div>
   );
