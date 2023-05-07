@@ -16,6 +16,9 @@ export const INPUT_FOCUS = 'INPUT_FOCUS';
 export const INPUT_BLUR = 'INPUT_BLUR';
 export const IMPORT_STATE = 'IMPORT_STATE';
 export const EXPORT_STATE = 'EXPORT_STATE';
+export const UPDATE_AXIOMS = 'UPDATE_AXIOMS';
+export const UPDATE_THEOREMS = 'UPDATE_THEOREMS';
+export const UPDATE_NEW_THEOREM = 'UPDATE_NEW_THEOREM';
 
 export const inputFocus = (text) => ({
   type: INPUT_FOCUS,
@@ -109,4 +112,22 @@ export const importState = (data) => ({
 
 export const exportState = () => ({
   type: EXPORT_STATE
+})
+
+export const updateAxioms = (clauses, context) => ({
+  type: UPDATE_AXIOMS,
+  skey: 'axioms',
+  clauses, context
+})
+
+export const updateTheorems = (clauses, context) => ({
+  type: UPDATE_THEOREMS,
+  skey: 'proovedTheorems',
+  clauses, context
+})
+
+export const updateNewTheorem = (clauses, context) => ({
+  type: UPDATE_NEW_THEOREM,
+  skey: 'newTheorem',
+  clauses, context
 })
