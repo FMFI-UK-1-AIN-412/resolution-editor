@@ -277,14 +277,13 @@ const steps = (state = { order: [], allSteps: new Map(), rank: new Map(), id: 0,
           [action.skey]: Object.fromEntries(
             action.clauses
               .map(c => canonicalClause(c, action.context, canonicalClauseFactory))
+              .filter(c => c !== undefined)
               .map(c => [c, true])
           ),
         }
       }
-      console.log('reducer for ', action.type, ' new state is: ', newState)
       const allSteps = new Map(state.allSteps);
       allSteps.forEach((step, id) => {
-        console.log('validating step', id, 'after', action.skey, 'update')
         allSteps.set(id, validateStep(step, id, newState, language))
       })
       newState.allSteps = allSteps;
@@ -450,8 +449,13 @@ const canonicalClauseFactory = {
 };
 
 function canonicalClause(formula, context) {
-  console.log('Converting to caninocal clause: ', formula, context);
-  return parseClause(formula, context, canonicalClauseFactory)
+  let cc = undefined;
+  try {
+    cc = parseClause(formula, context, canonicalClauseFactory)
+  } catch(e) {
+    console.error(`Skipping invalid context formula: \'${formula}\'.`, e);
+  }
+  return cc;
 }
 
 function containsValidEmptyClause(allSteps) {
