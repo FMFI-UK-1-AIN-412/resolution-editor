@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import AddStep from '../containers/AddStep'
 import ActualProof from '../containers/ActualProof'
 import DisplayActualLanguage from '../containers/DisplayActualLanguage';
@@ -24,6 +24,13 @@ function prepare(initialState) {
     )
   };
   const getState = (instance) => exportState(instance.store.getState());
+
+  instance.store.subscribe(() => {
+    if (instance.handleStoreChange) {
+      instance.handleStoreChange();
+    }
+  });
+
   return {
     instance,
     getState
@@ -34,10 +41,11 @@ export const LogicContext = React.createContext(undefined);
 
 function AppComponent({ instance, isEdited, onStateChange, context, proof, updateProofVerdict }) {
   const store = instance.store
-  store.subscribe(() => {
+
+  instance.handleStoreChange = useCallback(() => {
     onStateChange();
-    updateProofVerdict && updateProofVerdict(store.getState().present.steps.verdict);
-  });
+    updateProofVerdict && updateProofVerdict(instance.store.getState().present.steps.verdict);
+  }, [onStateChange,updateProofVerdict]);
 
   useMemo(() => {
     if (proof) {
