@@ -287,6 +287,7 @@ const steps = (state = { order: [], allSteps: new Map(), rank: new Map(), id: 0,
         allSteps.set(id, validateStep(step, id, newState, language))
       })
       newState.allSteps = allSteps;
+      newStep.verdict = containsValidEmptyClause(allSteps)
       return newState;
     }
     default:
@@ -458,6 +459,7 @@ function canonicalClause(formula, context) {
   return cc;
 }
 
+/* Used to compute proof verdict */
 function containsValidEmptyClause(allSteps) {
   let contains = false;
   for (let step of allSteps.values()) {
