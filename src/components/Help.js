@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { LogicContext } from './AppComponent';
 
-const Help = () => (
+const Help = () => {
+  const context = useContext(LogicContext);
+  return (
   <div className="mt-2 d-inline-block ">
     <h4>Help</h4>
+    { !context && (
     <div className="mb-2">
       <p className="mb-0">Language - Declarations of non-logical symbols:</p>
       <ul className="fs-sm">
@@ -11,6 +15,7 @@ const Help = () => (
         <li >A function or predicate symbol declaration has the form symbol/arity (e.g. f/1)</li>
       </ul>
     </div>
+    )}
     <div>
       <p className="mb-0">Proof - Alternative ways of writing logical symbols:</p>
       <ul className="fs-sm">
@@ -21,5 +26,6 @@ const Help = () => (
       </ul>
     </div>
   </div>
-);
+  );
+}
 export default Help

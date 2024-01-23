@@ -1,5 +1,6 @@
-import { ADD_STEP, CHANGE_STEP, DELETE_STEP, INSERT_STEP, STEP_UP, STEP_DOWN, CHANGE_RULE, CHANGE_RENAMING, CHANGE_REFERENCE1, CHANGE_REFERENCE2, CHANGE_UNIFIER, CHANGE_CONST, CHANGE_FUN, CHANGE_PRED, IMPORT_STATE } from '../actions'
-import { step, validateReference, validateRenaming, validateUnifier, validateClause } from './step'
+import { ADD_STEP, CHANGE_STEP, DELETE_STEP, INSERT_STEP, STEP_UP, STEP_DOWN, CHANGE_RULE, CHANGE_RENAMING, CHANGE_REFERENCE1, CHANGE_REFERENCE2, CHANGE_UNIFIER, CHANGE_CONST, CHANGE_FUN, CHANGE_PRED, IMPORT_STATE, UPDATE_AXIOMS, UPDATE_THEOREMS, UPDATE_NEW_THEOREM } from '../actions'
+import { step, validateReference, validateRenaming, validateUnifier, validateClause, getSymbols } from './step'
+import { parseClause } from '@fmfi-uk-1-ain-412/js-fol-parser';
 
 const newStep = {
   formula: {
@@ -31,7 +32,7 @@ const newStep = {
   valid: false
 };
 
-const steps = (state = { order: [], allSteps: new Map(), rank: new Map(), id: 0 }, action = { type: undefined }, language) => {
+const steps = (state = { order: [], allSteps: new Map(), rank: new Map(), id: 0, verdict: false }, action = { type: undefined }, language) => {
   switch (action.type) {
     case ADD_STEP:
       return Object.assign({}, state, {
@@ -47,7 +48,7 @@ const steps = (state = { order: [], allSteps: new Map(), rank: new Map(), id: 0 
           ...state.rank,
           [state.id, state.order.length]
         ]),
-        id: state.id+1
+        id: state.id + 1
       })
 
     case CHANGE_RULE:
@@ -82,7 +83,7 @@ const steps = (state = { order: [], allSteps: new Map(), rank: new Map(), id: 0 
           ));
         }
       }
-      return { ...state, allSteps };
+      return { ...state, allSteps, verdict: containsValidEmptyClause(allSteps) };
     }
 
     case DELETE_STEP: {
@@ -149,7 +150,7 @@ const steps = (state = { order: [], allSteps: new Map(), rank: new Map(), id: 0 
           reference2: checkReferenceAfterInsert({ ...step.reference2 }, action.position)
         })
       }
-      let newState = { ...state, rank: newRank, order: newOrder, allSteps: newSteps, id: state.id+1 };
+      let newState = { ...state, rank: newRank, order: newOrder, allSteps: newSteps, id: state.id + 1 };
       for (let i = action.position + 1; i < newState.order.length; i++) {
         let id = newState.order[i];
         newSteps.set(id, validateStep(
@@ -253,7 +254,7 @@ const steps = (state = { order: [], allSteps: new Map(), rank: new Map(), id: 0 
 
     case CHANGE_CONST:
     case CHANGE_FUN:
-    case CHANGE_PRED: 
+    case CHANGE_PRED:
     case IMPORT_STATE: {
       const allSteps = new Map(state.allSteps);
       for (let id of state.order) {
@@ -266,7 +267,29 @@ const steps = (state = { order: [], allSteps: new Map(), rank: new Map(), id: 0 
       }
       return { ...state, allSteps };
     }
-
+    case UPDATE_NEW_THEOREM:
+    case UPDATE_THEOREMS:
+    case UPDATE_AXIOMS: {
+      const newState = {
+        ...state,
+        logicContext: {
+          ...state.logicContext,
+          [action.skey]: Object.fromEntries(
+            action.clauses
+              .map(c => canonicalClause(c, action.context, canonicalClauseFactory))
+              .filter(c => c !== undefined)
+              .map(c => [c, true])
+          ),
+        }
+      }
+      const allSteps = new Map(state.allSteps);
+      allSteps.forEach((step, id) => {
+        allSteps.set(id, validateStep(step, id, newState, language))
+      })
+      newState.allSteps = allSteps;
+      newStep.verdict = containsValidEmptyClause(allSteps)
+      return newState;
+    }
     default:
       return state
   }
@@ -329,7 +352,8 @@ function validateStep(step, id, state, language) {
     reference2: reference2[1],
     renaming: renaming[1],
     unifier: unifier[1],
-    formula: formula[1]
+    formula: formula[1],
+    emptyClause: formula[1].object !== undefined && formula[1].object.toString() === '',
   }
   switch (step.rule) {
     case "Factoring": {
@@ -382,12 +406,69 @@ function validateStep(step, id, state, language) {
       if (!formula[0]) {
         return { ...newStep, valid: false };
       }
+      if (state.logicContext) {
+        return contextAssumptionValidation(state, getSymbols(language), newStep);
+      }
       return { ...newStep, valid: true };
     }
 
     default:
       return { ...newStep };
   }
+}
+
+function contextAssumptionValidation(state, language, step) {
+  const {axioms, proovedTheorems, newTheorem} = state.logicContext;
+  if (axioms && axioms[canonicalClause(step.formula.input, language)]) {
+    return { ...step, valid: true };
+  }
+  if (proovedTheorems && proovedTheorems[canonicalClause(step.formula.input, language)]) {
+    return { ...step, valid: true };
+  }
+  if (newTheorem && newTheorem[canonicalClause(step.formula.input, language)]) {
+    return { ...step, valid: true };
+  }
+  return {
+    ...step, valid: false, formula: {
+      ...step.formula, error: {
+        name: "LogicError",
+        message: "Assumption formula must be clause of axiom, prooved theorem or theorem negation"
+      }
+    }
+  };
+}
+
+const canonicalClauseFactory = {
+  literal: (negated, symbol, args, ee) => {
+    const atom = `${symbol}(${args.join(', ')})`
+    return negated ? `~${atom}` : atom
+  },
+  clause: (literals) => [...literals].sort().join(' | '),
+  variable: (symbol, ee) => symbol,
+  constant: (symbol, ee) => symbol,
+  functionApplication: (symbol, args, ee) => `${symbol}(${args.join(', ')})`,
+};
+
+function canonicalClause(formula, context) {
+  let cc = undefined;
+  try {
+    cc = parseClause(formula, context, canonicalClauseFactory)
+  } catch(e) {
+    console.error(`Skipping invalid context formula: \'${formula}\'.`, e);
+  }
+  return cc;
+}
+
+/* Used to compute proof verdict */
+function containsValidEmptyClause(allSteps) {
+  let contains = false;
+  for (let step of allSteps.values()) {
+    if (step.valid && step.emptyClause) {
+      contains = true;
+      break;
+    }
+  }
+  return contains;
 }
 
 function getPremise(reference, state) {
