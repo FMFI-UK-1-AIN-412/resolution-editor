@@ -8,30 +8,30 @@
     "lib/**"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/preset-react": "^7.16.0",
+    "@babel/cli": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
     "@fmfi-uk-1-ain-412/isolate-css": "^0.1.1",
     "del-cli": "^4.0.1",
     "gh-pages": "^2.2.0",
     "nodemon": "^2.0.21",
-    "react-scripts": "^3.0.0",
+    "react-scripts": "^4.0.3",
     "typescript": "^4.5.2"
   },
   "dependencies": {
     "@fmfi-uk-1-ain-412/js-fol-parser": "^0.6.1",
     "bootstrap": "^4.4.1",
     "prop-types": "^15.7.2",
-    "react-redux": "^7.0.2",
+    "react-redux": "^8.1.3",
     "redux": "^4.0.1",
-    "redux-undo": "^1.0.0-beta9-9-7"
+    "redux-undo": "^1.1.0"
   },
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "eject": "react-scripts eject",
     "test": "react-scripts test --env=node --passWithNoTests",
     "predeploy": "npm run build",
