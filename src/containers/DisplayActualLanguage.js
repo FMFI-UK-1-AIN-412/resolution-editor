@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { changeConst, changePred, changeFun } from '../actions';
-import { LogicContext } from '../components/AppComponent'
+import LogicContext from '../components/LogicContext'
 
 const DisplayLanguage = ({ language, changeConst, changePred, changeFun }) => {
   const context = useContext(LogicContext);
