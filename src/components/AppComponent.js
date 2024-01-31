@@ -10,6 +10,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducer, { exportState, importState, freshState } from '../reducers';
 import { updateAxioms, updateTheorems, updateNewTheorem } from '../actions';
+import LogicContext from './LogicContext'
 
 import '../static/css/bootstrap.min.iso.css';
 import '../static/css/style.iso.css';
@@ -36,8 +37,6 @@ function prepare(initialState) {
     getState
   };
 }
-
-export const LogicContext = React.createContext(undefined);
 
 function AppComponent({ instance, isEdited, onStateChange, context, proof, updateProofVerdict }) {
   const store = instance.store
