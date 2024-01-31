@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { LogicContext } from './AppComponent';
+import LogicContext from './LogicContext';
 
 const Help = () => {
   const context = useContext(LogicContext);
