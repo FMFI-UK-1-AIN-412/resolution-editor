@@ -80,7 +80,7 @@ function AppComponent({ instance, isEdited, onStateChange, context, proof, updat
   }, [proof?.newTheoremConv]);
 
   return (
-    <div className="resolution-editor-4YK5awDfvr">
+    <div className={`resolution-editor-4YK5awDfvr is-${isEdited || 'not-'}edited`}>
       <Provider store={store}>
         <LogicContext.Provider value={proof === undefined ? context : proof.extendedContext}>
           {isEdited && <UndoRedo />}

@@ -6,7 +6,7 @@ import Factoring from './FactoringParams'
 
 const Step = ({ index, step, onChange, onDelete, onInsert, onUp, onDown, onRule, onRenaming, onUnifier, onReference1, onReference2, onBlur, onFocus }) => (
   <div className="step mb-2">
-    <div className="input-group input-group-sm mb-1">
+    <div className="step-formula input-group input-group-sm mb-1">
       <label className="input-group-prepend mb-0" htmlFor={`formula-${index}`}>
         <span className="input-group-text">{index}</span>
       </label>

@@ -1,3 +1,12 @@
 .fs-sm {
     font-size: .875rem;
 }
+.is-not-edited .step-formula button {
+    display: none;
+}
+.is-not-edited .step-parameter {
+    margin-bottom: 0 !important;
+}
+.is-not-edited .step-parameter label {
+    display: none;
+}
