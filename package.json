@@ -1,6 +1,6 @@
 {
   "name": "@fmfi-uk-1-ain-412/resolution-editor",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "homepage": "https://fmfi-uk-1-ain-412.github.io/resolution-editor",
   "main": "lib/dist/components/AppComponent.js",
   "types": "lib/types/types.d.ts",
