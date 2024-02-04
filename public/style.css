@@ -1,9 +1,3 @@
-.step label {
-    display: none;
-}
-.step:focus-within label {
-    display: inline-block;
-}
 .fs-sm {
     font-size: .875rem;
 }

@@ -5,14 +5,15 @@ import Resolution from './ResolutionParams'
 import Factoring from './FactoringParams'
 
 const Step = ({ index, step, onChange, onDelete, onInsert, onUp, onDown, onRule, onRenaming, onUnifier, onReference1, onReference2, onBlur, onFocus }) => (
-  <div className="step">
-    <div className="input-group mb-2 input-group-sm">
-      <div className="input-group-prepend">
+  <div className="step mb-2">
+    <div className="input-group input-group-sm mb-1">
+      <label className="input-group-prepend mb-0" htmlFor={`formula-${index}`}>
         <span className="input-group-text">{index}</span>
-      </div>
+      </label>
       <input type="text" name="item" className={`form-control 
         ${step.formula.error ? "is-invalid" : ""}
-        ${step.valid ? "is-valid" : ""}`} 
+        ${step.valid ? "is-valid" : ""}`}
+        id={`formula-${index}`}
         onChange={e => onChange(e.target.value)}
         onBlur={e => onBlur(e.target.value)}
         onFocus={e => onFocus(e.target.value)}
@@ -29,7 +30,7 @@ const Step = ({ index, step, onChange, onDelete, onInsert, onUp, onDown, onRule,
         <button type="button" className="btn btn-outline-success btn-sm" onClick={onInsert}> + </button>
         <button type="button" className="btn btn-outline-secondary btn-sm" onClick={onUp} disabled={onUp === null}> ↑ </button>
         <button type="button" className="btn btn-outline-secondary btn-sm" onClick={onDown} disabled={onDown === null}> ↓ </button>
-        <button className="btn btn-outline-danger" type="button" onClick={onDelete} >X</button>
+        <button className="btn btn-outline-danger" type="button" onClick={onDelete}>&times;</button>
       </div>
       <ErrorMsg error={step.formula.error} input={step.formula.input} />
     </div>
