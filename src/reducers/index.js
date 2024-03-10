@@ -1,5 +1,5 @@
 import undoable, { newHistory } from 'redux-undo';
-import { ADD_STEP, CHANGE_STEP, DELETE_STEP, INSERT_STEP, STEP_UP, STEP_DOWN, CHANGE_RULE, CHANGE_RENAMING, CHANGE_REFERENCE1, CHANGE_REFERENCE2, CHANGE_UNIFIER, CHANGE_CONST, CHANGE_FUN, CHANGE_PRED, INPUT_FOCUS, INPUT_BLUR, EXPORT_STATE, IMPORT_STATE, UPDATE_AXIOMS, UPDATE_THEOREMS, UPDATE_NEW_THEOREM } from '../actions'
+import { ADD_STEP, CHANGE_STEP, DELETE_STEP, INSERT_STEP, STEP_UP, STEP_DOWN, CHANGE_RULE, CHANGE_RENAMING, CHANGE_REFERENCE1, CHANGE_REFERENCE2, CHANGE_UNIFIER, CHANGE_CONST, CHANGE_FUN, CHANGE_PRED, INPUT_FOCUS, INPUT_BLUR, EXPORT_STATE, IMPORT_STATE, UPDATE_PROOF } from '../actions'
 import steps from './steps'
 import language from './language'
 
@@ -34,9 +34,7 @@ function app(state = initialCombinedState, action) {
     case CHANGE_REFERENCE2:
     case CHANGE_RENAMING:
     case CHANGE_UNIFIER:
-    case UPDATE_AXIOMS:
-    case UPDATE_THEOREMS:
-    case UPDATE_NEW_THEOREM: {
+    case UPDATE_PROOF: {
       const stepsState = steps(state.steps, action, state.language);
       return { ...state, language: state.language, steps: stepsState }
     }
@@ -101,9 +99,7 @@ const undoableState = undoable(app, {
       case CHANGE_RENAMING:
       case CHANGE_UNIFIER:
       case INPUT_FOCUS:
-      case UPDATE_AXIOMS:
-      case UPDATE_THEOREMS:
-      case UPDATE_NEW_THEOREM: {
+      case UPDATE_PROOF: {
         return false
       }
 

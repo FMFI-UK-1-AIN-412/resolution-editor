@@ -16,9 +16,7 @@ export const INPUT_FOCUS = 'INPUT_FOCUS';
 export const INPUT_BLUR = 'INPUT_BLUR';
 export const IMPORT_STATE = 'IMPORT_STATE';
 export const EXPORT_STATE = 'EXPORT_STATE';
-export const UPDATE_AXIOMS = 'UPDATE_AXIOMS';
-export const UPDATE_THEOREMS = 'UPDATE_THEOREMS';
-export const UPDATE_NEW_THEOREM = 'UPDATE_NEW_THEOREM';
+export const UPDATE_PROOF = 'UPDATE_PROOF';
 
 export const inputFocus = (text) => ({
   type: INPUT_FOCUS,
@@ -70,19 +68,22 @@ export const changeReference2 = (id, text) => ({
   text
 })
 
-export const changeConst = (text) => ({
+export const changeConst = (text, ignore) => ({
   type: CHANGE_CONST,
-  text
+  text,
+  ignore
 })
 
-export const changeFun = (text) => ({
+export const changeFun = (text, ignore) => ({
   type: CHANGE_FUN,
-  text
+  text,
+  ignore
 })
 
-export const changePred = (text) => ({
+export const changePred = (text, ignore) => ({
   type: CHANGE_PRED,
-  text
+  text,
+  ignore
 })
 
 export const deleteStep = (id) => ({
@@ -115,19 +116,19 @@ export const exportState = () => ({
 })
 
 export const updateAxioms = (clauses, context) => ({
-  type: UPDATE_AXIOMS,
+  type: UPDATE_PROOF,
   skey: 'axioms',
   clauses, context
 })
 
 export const updateTheorems = (clauses, context) => ({
-  type: UPDATE_THEOREMS,
+  type: UPDATE_PROOF,
   skey: 'proovedTheorems',
   clauses, context
 })
 
 export const updateNewTheorem = (clauses, context) => ({
-  type: UPDATE_NEW_THEOREM,
+  type: UPDATE_PROOF,
   skey: 'newTheorem',
   clauses, context
 })
