@@ -80,17 +80,19 @@ function AppComponent({ instance, isEdited, onStateChange, context, proof, updat
   }, [proof?.newTheoremConv]);
 
   return (
-    <div className={`resolution-editor-4YK5awDfvr is-${isEdited || 'not-'}edited`}>
-      <Provider store={store}>
-        <LogicContext.Provider value={proof === undefined ? context : proof.extendedContext}>
-          {isEdited && <UndoRedo />}
-          {isEdited && <ImportExport />}
-          {context === undefined ? <ActualLanguage /> : <DisplayActualLanguage />}
-          <ActualProof />
-          {isEdited && <AddStep />}
-          {isEdited && <Help />}
-        </LogicContext.Provider>
-      </Provider>
+    <div className="resolution-editor-4YK5awDfvr">
+      <div className={`is-${isEdited ? '' : 'not-'}edited`}>
+        <Provider store={store}>
+          <LogicContext.Provider value={proof === undefined ? context : proof.extendedContext}>
+            {isEdited && <UndoRedo />}
+            {isEdited && <ImportExport />}
+            {context === undefined ? <ActualLanguage /> : <DisplayActualLanguage />}
+            <ActualProof />
+            {isEdited && <AddStep />}
+            {isEdited && <Help />}
+          </LogicContext.Provider>
+        </Provider>
+      </div>
     </div>
   );
 }
