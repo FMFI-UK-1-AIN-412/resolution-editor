@@ -40,7 +40,6 @@ function prepare(initialState) {
     }) : compose;
   
   const stateMonitor = store => next => action => {
-    console.log('resolution editor redux action:', action)
     let notifyWorkbook = !filterAction(action);
     if (instance.handleStoreChange) {
       instance.handleStoreChange(notifyWorkbook);
@@ -61,12 +60,6 @@ function prepare(initialState) {
     )
   };
   const getState = (instance) => exportState(instance.store.getState());
-/*
-  instance.store.subscribe(() => {
-    if (instance.handleStoreChange) {
-      instance.handleStoreChange();
-    }
-  });*/
 
   return {
     instance,
