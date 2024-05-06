@@ -6,9 +6,9 @@ import LogicContext from '../components/LogicContext'
 const DisplayLanguage = ({ language, changeConst, changePred, changeFun }) => {
   const context = useContext(LogicContext);
 
-  useMemo(() => context?.constantsExpr && changeConst(context.constantsExpr), [context?.constantsExpr])
-  useMemo(() => context?.functionsExpr && changeFun(context.functionsExpr), [context?.functionsExpr])
-  useMemo(() => context?.predicatesExpr && changePred(context.predicatesExpr), [context?.predicatesExpr])
+  useMemo(() => context?.constantsExpr && changeConst(context.constantsExpr, true), [context?.constantsExpr])
+  useMemo(() => context?.functionsExpr && changeFun(context.functionsExpr, true), [context?.functionsExpr])
+  useMemo(() => context?.predicatesExpr && changePred(context.predicatesExpr, true), [context?.predicatesExpr])
 
   return (
     <div className="mt-2">

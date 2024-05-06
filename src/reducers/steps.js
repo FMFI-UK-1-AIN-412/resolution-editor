@@ -1,4 +1,4 @@
-import { ADD_STEP, CHANGE_STEP, DELETE_STEP, INSERT_STEP, STEP_UP, STEP_DOWN, CHANGE_RULE, CHANGE_RENAMING, CHANGE_REFERENCE1, CHANGE_REFERENCE2, CHANGE_UNIFIER, CHANGE_CONST, CHANGE_FUN, CHANGE_PRED, IMPORT_STATE, UPDATE_AXIOMS, UPDATE_THEOREMS, UPDATE_NEW_THEOREM } from '../actions'
+import { ADD_STEP, CHANGE_STEP, DELETE_STEP, INSERT_STEP, STEP_UP, STEP_DOWN, CHANGE_RULE, CHANGE_RENAMING, CHANGE_REFERENCE1, CHANGE_REFERENCE2, CHANGE_UNIFIER, CHANGE_CONST, CHANGE_FUN, CHANGE_PRED, IMPORT_STATE, UPDATE_PROOF } from '../actions'
 import { step, validateReference, validateRenaming, validateUnifier, validateClause, getSymbols } from './step'
 import { parseClause } from '@fmfi-uk-1-ain-412/js-fol-parser';
 
@@ -267,9 +267,7 @@ const steps = (state = { order: [], allSteps: new Map(), rank: new Map(), id: 0,
       }
       return { ...state, allSteps };
     }
-    case UPDATE_NEW_THEOREM:
-    case UPDATE_THEOREMS:
-    case UPDATE_AXIOMS: {
+    case UPDATE_PROOF: {
       const newState = {
         ...state,
         logicContext: {
