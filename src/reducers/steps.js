@@ -355,11 +355,11 @@ function validateStep(step, id, state, language) {
   }
   switch (step.rule) {
     case "Factoring": {
-      if (!reference2[0]) {
+      if (!reference2[0] || !formula[0] || !unifier[0]) {
         return { ...newStep, valid: false };
       }
       const premise = getPremise(reference2[1].object, state);
-      if (!premise || !formula[0]) {
+      if (!premise) {
         return { ...newStep, valid: false };
       }
 
@@ -378,12 +378,12 @@ function validateStep(step, id, state, language) {
     }
 
     case "Resolution": {
-      if (!reference2[0] || !reference1[0]) {
+      if (!reference2[0] || !reference1[0] || !renaming[0] || !unifier[0] || !formula[0]) {
         return { ...newStep, valid: false };
       }
       const premise1 = getPremise(reference1[1].object, state);
       const premise2 = getPremise(reference2[1].object, state);
-      if (!premise1 || !premise2 || !formula[0]) {
+      if (!premise1 || !premise2) {
         return { ...newStep, valid: false };
       }
       if (newStep.formula.object.isResolventOf(premise1.formula.object, premise2.formula.object, newStep.renaming.object, newStep.unifier.object)) {
