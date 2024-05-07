@@ -5,11 +5,10 @@ import Step from './Step'
 const Proof = ({ steps, onStepDelete, onStepChange, onStepInsert, onStepUp, onStepDown, onRuleChange, onRenaming, onUnifier, onReference1, onReference2, inputFocus, inputBlur}) => (
   <div className="mt-2">
     <h2>Proof</h2>
-    <ol class="list-unstyled mb-0">
+    <ol className="list-unstyled mb-0">
     {steps.order.map((id, index) =>
-      <li>
+      <li key={id}>
         <Step
-          key={id}
           step = {steps.allSteps.get(id)} 
           index={index+1}
           state={steps}
